@@ -3,10 +3,14 @@ GET_GOARCH 		 = $(word 2,$(subst -, ,$1))
 GET_GOOS   		 = $(word 1,$(subst -, ,$1))
 GOBUILD   		?= $(shell go env GOOS)-$(shell go env GOARCH)
 GOFILES_NOVENDOR = $(shell find . -type f -name '*.go' -not -path "./vendor/*")
+TEST?=./...
 VETARGS? 		 =-all
 
 $(BUILD_DIR):
 	mkdir -p $@
+
+test:
+	 go test $(TEST) -v $(TESTARGS)
 
 .PHONY: install
 install:
